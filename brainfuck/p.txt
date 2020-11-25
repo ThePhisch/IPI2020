@@ -1,0 +1,41 @@
+++++++++++++++++
+>+.< gehe auf 1 setze auf "1" drucke und gehe zurück
+>> gehe auf 2
+++ setze 2 auf "2" dieser wert kann geändert werden wenn eine andere basis gewünscht
+<< auf 0
+[ starte auf 0
+        > auf 1
+        [
+        starte auf 1 task: multipliziere 1 und 2 auf 3
+        > gehe auf 2
+                [ starte auf 2 dieser teil addiert "2" auf 3 und 4
+                        > Auf Zelle 3
+                        + Inkrement Zelle 3
+                        > Auf Zelle 4
+                        + Inkrement Zelle 4
+                        << Auf zelle 2
+                        - Dekrement Zelle 2
+                ]
+                >> Auf Zelle 4
+                [
+                        << Auf Zelle 2
+                        + Inkrement Zelle 2
+                        >> Auf Zelle 4
+                        - Dekrement Zelle 4
+                ] Endet auf Zelle 4
+                <<< Auf Zelle 1
+	        - Dekrement Zelle 1
+        endet auf 1
+        ]
+        >> gehe auf 3
+        [ starte auf 3 bewege wert von 3 auf 1
+                << Auf zelle 1
+                +
+                >> Auf 3
+                -                
+        endet auf 3]
+        << auf 1
+        . drucke 1
+        < auf 0
+        - dekrement 0 bricht ab falls leer
+]

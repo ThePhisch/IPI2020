@@ -1,0 +1,40 @@
+,>, Nutzereingabe ende auf zelle2
+< auf zelle 1
+
+[
+	> Zelle 2
+	[
+		> Auf Zelle 3
+		+ Inkrement Zelle 3
+		> Auf Zelle 4
+		+ Inkrement Zelle 4
+		<< Auf zelle 2
+		- Dekrement Zelle 2
+	]
+	>> Auf Zelle 4
+	[
+		<< Auf Zelle 2
+		+ Inkrement Zelle 2
+		>> Auf Zelle 4
+		- Dekrement Zelle 4
+	] Endet auf Zelle 4
+	<<< Auf Zelle 1
+	- Dekrement Zelle 1
+]
+>> AUf zelle 3
+.
+fertig
+[
+        [>] gehe zur ersten leerstelle
+        + addiere 1
+        [<]
+        > gehe zurück auf 0
+        - dekrementiere 0
+]
+
+gehe zum ersten element und drucke alles
+>
+[
+        .
+        >
+]
