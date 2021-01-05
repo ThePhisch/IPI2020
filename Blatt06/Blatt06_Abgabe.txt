@@ -1,0 +1,183 @@
+================================================================================
+Aufgabe 1a)
+================================================================================
+
+#include "fcpp.hh"
+
+float determinante_float(float a, float b, float c, float d)
+{
+  return a*d - b*c;
+}
+
+double determinante_double(double a, double b, double c, double d) 
+{
+  return a*d - b*c;
+}
+
+int main(int argc, char *argv[])
+{
+  // Fügen Sie hier Ihren Code ein, zum Beispiel
+  // print(teiler(readarg_int(argc,argv,1),readarg_int(argc,argv,2))); 
+  print(
+    determinante_float(
+      float(readarg_double(argc,argv,1)),
+      float(readarg_double(argc,argv,2)),
+      float(readarg_double(argc,argv,3)),
+      float(readarg_double(argc,argv,4))));
+  print(
+    determinante_double(
+      readarg_double(argc,argv,1),
+      readarg_double(argc,argv,2),
+      readarg_double(argc,argv,3),
+      readarg_double(argc,argv,4)));
+  return(0);
+}
+
+================================================================================
+Aufgabe 1b)
+================================================================================
+
+#include "fcpp.hh"
+
+
+float differenz(float base, int n) 
+{
+  float a = float(pow(base,n));
+  float b = float(pow(-base,n));
+  float c = float(pow(base,-n));
+  return ((a+b)+c) - (a+(b+c));
+}
+
+int main(int argc, char *argv[]) 
+{
+  // Fügen Sie hier Ihren Code ein, zum Beispiel
+  // print(teiler(readarg_int(argc,argv,1),readarg_int(argc,argv,2)));
+  int basis = 10;
+  print(basis);
+  for (int i = 1; i < 15; i++)
+  {
+    print(i, differenz(basis,i), 0);
+  }
+  
+  return(0);
+}
+
+================================================================================
+Aufgabe 2
+================================================================================
+
+#include "fcpp.hh"
+
+
+float zins_float(float z, int n) 
+{
+  return float(pow(1+z/n,n))-1;
+}
+
+double zins_double(double z, int n) 
+{
+  return double(pow(1+z/n,n))-1;
+}
+
+int main(int argc, char *argv[]) 
+{
+  // Fügen Sie hier Ihren Code ein, zum Beispiel
+  // print(teiler(readarg_int(argc,argv,1),readarg_int(argc,argv,2)));
+  int n [6] = {1,12,365,365*24,365*24*60,365*24*60*60};
+  float z = 0.06;
+  for (int i = 0; i < 6; i++)
+  {
+    print("===");
+    print("n =", n[i],0);
+    print(zins_float(z,n[i]), zins_float(z,n[i]) - (exp(z)-1),0);
+    print(zins_double(z,n[i]), zins_double(z,n[i]) - (exp(z)-1),0);
+  }
+  
+  return(0);
+}
+
+================================================================================
+Aufgabe 3
+================================================================================
+
+/*
+ * Gegen Angriffe kann man sich wehren, gegen Lob ist man machtlos.
+ * - Sigmund Freud
+ */
+
+#include "fcpp.hh"
+
+// Bestimmt, ob zahl prim ist
+bool prim(int zahl)
+{
+  if (zahl == 1)
+    return false;
+
+  int index{2};
+  int wurzel{sqrt(static_cast<double>(zahl))};
+
+  while (index <= wurzel)
+    {
+      if (zahl % index == 0)
+        return false;
+
+      ++index;
+    }
+
+
+  return true;
+}
+
+// Bestimmung der Primzahlen im Intervall [untere, obere] mit einer while-Schleife
+int prim_anzahl_while(int untere, int obere)
+{
+  int anzahl{0};
+  int &index{untere};
+
+  while (index <= obere)
+    {
+      if (prim(index))
+        ++anzahl;
+
+      ++ index;
+    }
+  return anzahl;
+}
+
+// Bestimmung der Primzahlen im Intervall [untere, obere] mit einer for-Schleife
+int prim_anzahl_for(int untere, int obere)
+{
+  int anzahl{0};
+  int &index{untere};
+
+  for (index; index <= obere; ++index)
+    {
+      if (prim(index))
+        ++anzahl;
+    }
+  return anzahl;
+}
+
+int prim_anzahl_goto(int untere, int obere)
+{
+  int anzahl{0};
+  int &index{untere};
+
+ kopf:
+  if (index > obere)
+    return anzahl;
+
+  if (prim(index))
+    ++anzahl;
+  ++index;
+
+  goto kopf;
+}
+
+int main()
+{
+  print(prim_anzahl_for(1, 100));
+  print(prim_anzahl_while(1, 100));
+  print(prim_anzahl_goto(1, 100));
+  return 0;
+}
