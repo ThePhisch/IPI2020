@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
 {
   // Fügen Sie hier Ihren Code ein, zum Beispiel
   // print(teiler(readarg_int(argc,argv,1),readarg_int(argc,argv,2)));
-  int basis = 10;
+  int basis = 2;
   print(basis);
   for (int i = 1; i < 15; i++)
   {
-    print(i, differenz(basis,i), 0);
+    print(i, differenz(basis,13), 0);
   }
   
   return(0);
