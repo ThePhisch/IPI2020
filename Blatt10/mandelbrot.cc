@@ -1,6 +1,8 @@
 #include "fcpp.hh"
 #include <math.h>
 #include <iostream>
+#include "colourfunc.hh"
+#include "flameColours.cc"
 
 // Datentyp für komplexe Zahlen
 // Datentyp für komplexe Zahlen
@@ -98,7 +100,8 @@ public:
       v[x] = new int[HEIGHT];
     }
     // Mit Startwerten füllen
-    recenter(-0.1027705, -0.9475189, 0.4);
+    // recenter();
+    recenter(-0.4621603, -0.5823998, 0.0005);
     init();
   }
 
@@ -178,6 +181,7 @@ public:
   void save_as_ppm()
   {
     print("Speichere Bild...");
+    flameColour flame;
     // Datei öffnen
     FILE *f = fopen("mandelbrot.ppm", "wb");
     // Header für .ppm-Format in die Datei schreiben
@@ -194,9 +198,12 @@ public:
         if (v > 255)
           v = 255;
         // R, G und B jeweils als Byte in die Datei schreiben
-        fputc((char)v, f);
-        fputc((char)v, f);
-        fputc((char)v, f);
+        fputc(flame.getR(v), f);
+        fputc(flame.getG(v), f);
+        fputc(flame.getB(v), f);
+        // fputc(char(v), f);
+        // fputc(char(v), f);
+        // fputc(char(0), f);
       }
     }
     // Datei schließen
@@ -207,7 +214,7 @@ public:
 int main()
 {
   // Mandelbrot-Instanz mit WIDTH=1280 und HEIGHT=800
-  Mandelbrot<1280, 800> m;
+  Mandelbrot<2000, 1000> m;
   // 512 Schritte iterieren mit Grenzwert 2,5
   m.iterate(512, 2.5);
   // Bild speichern
