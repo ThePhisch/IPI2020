@@ -75,11 +75,15 @@ int  dea::nachfolge_zustand(int zustand, int symbol){
 };
 
 bool dea::in_alphabet(char symbol){
-    // Hier fehlt die Implementierung.
+    return (97 <= (int) symbol) and (int) symbol <= 96+anzahl_symbole;
 }
 
 bool dea::verarbeite(char*  eingabe){
-    // Hier fehlt die Implementierung.
+    int zustand = 0;
+    for (int i = 0; in_alphabet(eingabe[i]); i++) {
+        zustand = _prog[zeile(zustand, (int) eingabe[i] - 97)]; 
+    }
+    return _akz[zustand];
 }
 
 int main(int argc, char** argv) {
@@ -87,7 +91,6 @@ int main(int argc, char** argv) {
     zustandsmenge akz = {true, false, false};  // nur Zustand 0 ist akzeptierend
     dea automat(prog,akz);
     automat.drucke_programm();
-    
     char* eingabe;
     char  leeres_wort[1]={0};
     
