@@ -36,7 +36,6 @@ public:
 	// Löscht das Element an der Position 'position'
 	void remove(int position);
 
-
 private:
 	// Ein Listenelement
 	struct IntListElem
@@ -51,7 +50,6 @@ private:
 	// Zeiger auf erstes Element der Liste
 	IntListElem *first;
 
-	
 	void discard();
 
 	IntListElem *copyList(IntListElem *otherFirst);
@@ -66,6 +64,9 @@ IntList::IntList()
 // Copy-Konstruktor, erzeuge deep copy
 IntList::IntList(const IntList &other)
 {
+	count = other.count;
+	IntListElem *f = other.first;
+	first = copyList(f);
 }
 
 // Destruktor, loesche alle Elemente
@@ -77,6 +78,19 @@ IntList::~IntList()
 // Zuweisungsoperator
 IntList &IntList::operator=(const IntList &other)
 {
+	if (this != &other)
+	{
+		discard();
+		count = other.count;
+		IntListElem *f = other.first;
+		first = copyList(f);
+	}
+	/*
+	Der Fall, dass die Objekte links und rechts identisch sind, muss
+	abgefangen werden, denn sonst würde die Methode "discard" die
+	Elemente links und rechts löschen und es gäbe keine Listenelemente
+	mehr, die kopiert werden können	
+	 */
 }
 
 void IntList::print()
@@ -201,15 +215,28 @@ void IntList::remove(int position)
 // erzeugt eine tiefe Kopie der internen Liste
 IntList::IntListElem *IntList::copyList(IntListElem *otherFirst)
 {
+	IntListElem *newFirst = new IntListElem();
+	newFirst->value = otherFirst->value;
+	IntListElem *temp = newFirst;
+
+	for (IntListElem *cursor = otherFirst->next; cursor; cursor = cursor->next)
+	{
+		temp->next = new IntListElem();
+		temp->next->value = cursor->value;
+		temp->next->next = NULL;
+		temp = temp->next;
+	}
+	return newFirst;
 }
 
 // leere die interne Liste
 void IntList::discard()
 {
+	count = 0;
 	IntListElem *curr = first;
 	for (int i; i < count; i++)
 	{
-		IntListElem* temp = curr->next;
+		IntListElem *temp = curr->next;
 		delete curr;
 		curr = temp;
 	}
@@ -231,20 +258,20 @@ int main()
 	// int pos = 1;
 	// std::cout << "Element an Position " << pos << ": " << list.getElement(pos) << std::endl;
 
-	// list.remove(1);
-	// list.print();
+	list.remove(1);
+	list.print();
 
-	// list.insert(20, 1);
-	// list.print();
+	list.insert(20, 1);
+	list.print();
 
-	// IntList copy(list);
-	// copy.print();
+	IntList copy(list);
+	copy.print();
 
-	// copy.remove(0);
-	// copy.print();
+	copy.remove(0);
+	copy.print();
 
-	// copy = list;
-	// copy.print();
+	copy = list;
+	copy.print();
 
 	return 0;
 }
